@@ -1,0 +1,403 @@
+:root {
+  --bg-deep: #060911;
+  --bg-card: rgba(14, 21, 36, 0.78);
+  --bg-card-hover: rgba(20, 31, 52, 0.92);
+  --border-soft: rgba(148, 163, 184, 0.14);
+  --border-hover: rgba(148, 163, 184, 0.32);
+
+  --text-main: #f1f5f9;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Volné náhrady písem z claude.ai: DM Sans místo Styrene (rozhraní),
+     Source Serif 4 místo Tiempos (nadpisy a čtený text) */
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4', 'Tiempos Text', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100dvh;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  overflow-x: hidden;
+}
+
+a, button, [role="button"], .project-card, .project-card * {
+  cursor: pointer !important;
+}
+
+/* Jemné plynulé míchání barev (modrá, zelená, červená) na tmavém pozadí */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #050811;
+}
+
+.glow-orb {
+  position: absolute;
+  width: min(600px, 75vw);
+  height: min(600px, 75vw);
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+/* Modrá */
+.glow-blue {
+  top: -4%;
+  left: 4%;
+  background: radial-gradient(circle, rgba(56, 152, 255, 0.55) 0%, rgba(56, 152, 255, 0) 70%);
+  animation: mix-blue 14s ease-in-out infinite alternate;
+}
+
+/* Zelená */
+.glow-green {
+  top: 4%;
+  right: 4%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.55) 0%, rgba(16, 185, 129, 0) 70%);
+  animation: mix-green 16s ease-in-out infinite alternate;
+}
+
+/* Červená */
+.glow-red {
+  bottom: -4%;
+  left: 26%;
+  background: radial-gradient(circle, rgba(245, 55, 55, 0.58) 0%, rgba(245, 55, 55, 0) 70%);
+  animation: mix-red 15s ease-in-out infinite alternate;
+}
+
+@keyframes mix-blue {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(28vw, 24vh) scale(1.12); }
+  100% { transform: translate(12vw, 38vh) scale(0.95); }
+}
+
+@keyframes mix-green {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-28vw, 26vh) scale(1.14); }
+  100% { transform: translate(-12vw, 36vh) scale(0.95); }
+}
+
+@keyframes mix-red {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-18vw, -32vh) scale(1.15); }
+  100% { transform: translate(18vw, -26vh) scale(0.96); }
+}
+
+/* Centrování rozcestníku uprostřed obrazovky */
+.hub-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 1.25rem;
+}
+
+.hub-container {
+  width: 100%;
+  max-width: 780px;
+}
+
+/* Hlavička se štítkem zkusmo.cz */
+.hub-header {
+  text-align: center;
+  margin-bottom: 0.95rem;
+}
+
+.hub-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 1.48rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(20, 30, 48, 0.82);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 0.42rem 1.45rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.hub-badge .flag-blue {
+  color: #3898ff;
+}
+
+.hub-badge .flag-white {
+  color: #ffffff;
+}
+
+.hub-badge .flag-green {
+  color: #10b981;
+}
+
+.hub-badge .flag-red {
+  color: #f04444;
+}
+
+/* Seznam karet pod sebou */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+}
+
+.project-card {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  padding: 0.82rem 1.25rem 0.82rem 0.85rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  background: var(--bg-card-hover);
+}
+
+/* Barevné akcenty jednotlivých projektů */
+.project-card.accent-emerald {
+  --accent: #10b981;
+  --accent-soft: rgba(16, 185, 129, 0.14);
+  --accent-border: rgba(16, 185, 129, 0.45);
+  --accent-glow: rgba(16, 185, 129, 0.16);
+}
+
+.project-card.accent-blue {
+  --accent: #3d8bff;
+  --accent-soft: rgba(61, 139, 255, 0.14);
+  --accent-border: rgba(61, 139, 255, 0.45);
+  --accent-glow: rgba(61, 139, 255, 0.16);
+}
+
+.project-card.accent-orange {
+  --accent: #e07a5f;
+  --accent-soft: rgba(224, 122, 95, 0.14);
+  --accent-border: rgba(224, 122, 95, 0.45);
+  --accent-glow: rgba(224, 122, 95, 0.16);
+}
+
+.project-card.accent-sky {
+  --accent: #ffffff;
+  --accent-soft: rgba(255, 255, 255, 0.12);
+  --accent-border: rgba(255, 255, 255, 0.45);
+  --accent-glow: rgba(255, 255, 255, 0.14);
+}
+
+.project-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.55), 0 0 22px var(--accent-glow);
+}
+
+/* Ikona projektu vlevo */
+.card-icon {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-icon.icon-emerald {
+  background: linear-gradient(135deg, #059669, #10b981);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
+}
+
+.card-icon.icon-blue {
+  background: linear-gradient(135deg, #0c2a5a, #3d8bff);
+  box-shadow: 0 6px 20px rgba(61, 139, 255, 0.28);
+}
+
+.card-icon.icon-orange {
+  background: linear-gradient(135deg, #9c4a2f, #D97757);
+  box-shadow: 0 6px 20px rgba(217, 119, 87, 0.28);
+}
+
+.card-icon.icon-sky {
+  background: linear-gradient(135deg, #0a2463, #0075FF);
+  box-shadow: 0 6px 20px rgba(0, 117, 255, 0.28);
+}
+
+.project-card:hover .card-icon {
+  transform: scale(1.06);
+}
+
+/* Textová část uprostřed */
+.card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.32rem;
+}
+
+.card-title-row h2 {
+  font-family: var(--font-serif);
+  font-size: 1.22rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.card-domain {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.12rem 0.52rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.card-desc {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  color: var(--text-dim);
+  line-height: 1.48;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Šipka vpravo */
+.card-arrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover .card-arrow {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  transform: translateX(3px);
+}
+
+/* Patička */
+.hub-footer {
+  margin-top: 0.95rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Responzivita pro mobilní telefony */
+@media (max-width: 600px) {
+  .hub-wrapper {
+    align-items: flex-start;
+    padding: 1.15rem 0.85rem max(1.25rem, env(safe-area-inset-bottom));
+  }
+
+  .hub-header {
+    margin-bottom: 0.85rem;
+  }
+
+  .hub-badge {
+    font-size: 1.28rem;
+    padding: 0.35rem 1.2rem;
+  }
+
+  .project-list {
+    gap: 0.65rem;
+  }
+
+  .project-card {
+    align-items: flex-start;
+    padding: 0.85rem 0.9rem;
+    gap: 0.85rem;
+    border-radius: 14px;
+  }
+
+  .project-card:active {
+    transform: scale(0.99);
+    background: var(--bg-card-hover);
+    border-color: var(--accent-border);
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    margin-top: 0.1rem;
+  }
+
+  .card-icon svg {
+    width: 24px;
+    height: auto;
+    max-height: 24px;
+  }
+
+  .card-title-row {
+    gap: 0.2rem 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-title-row h2 {
+    font-size: 1.1rem;
+    line-height: 1.25;
+  }
+
+  .card-domain {
+    font-size: 0.68rem;
+    padding: 0.1rem 0.44rem;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    line-height: 1.42;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .card-arrow {
+    display: none;
+  }
+
+  .hub-footer {
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
+  }
+}
