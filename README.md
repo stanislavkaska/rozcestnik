@@ -3,9 +3,10 @@
 Rozcestník projektů na doméně **[www.zkusmo.cz](https://www.zkusmo.cz)**:
 
 1. **Fotíme dronem** — [www.fotimedronem.eu](https://www.fotimedronem.eu)
-2. **Navštívili jsme** — [navstivilijsme.zkusmo.cz](https://navstivilijsme.zkusmo.cz)
-3. **Panel** — [panel.zkusmo.cz](https://panel.zkusmo.cz)
-4. **Rozhodovač** — [rozhodovac.zkusmo.cz](https://rozhodovac.zkusmo.cz)
+2. **Muzeum vozidel Pořežany** — [muzeum.wz.cz](https://muzeum.wz.cz)
+3. **Navštívili jsme** — [navstivilijsme.zkusmo.cz](https://navstivilijsme.zkusmo.cz)
+4. **Panel** — [panel.zkusmo.cz](https://panel.zkusmo.cz)
+5. **Rozhodovač** — [rozhodovac.zkusmo.cz](https://rozhodovac.zkusmo.cz)
 
 ## Nasazení (GitHub Pages)
 

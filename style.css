@@ -206,6 +206,13 @@ a, button, [role="button"], .project-card, .project-card * {
   --accent-glow: rgba(255, 255, 255, 0.14);
 }
 
+.project-card.accent-gold {
+  --accent: #d4a84f;
+  --accent-soft: rgba(212, 168, 79, 0.14);
+  --accent-border: rgba(212, 168, 79, 0.45);
+  --accent-glow: rgba(212, 168, 79, 0.16);
+}
+
 .project-card:hover {
   border-color: var(--accent-border);
   box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.55), 0 0 22px var(--accent-glow);
@@ -242,6 +249,11 @@ a, button, [role="button"], .project-card, .project-card * {
 .card-icon.icon-sky {
   background: linear-gradient(135deg, #0a2463, #0075FF);
   box-shadow: 0 6px 20px rgba(0, 117, 255, 0.28);
+}
+
+.card-icon.icon-gold {
+  background: linear-gradient(135deg, #6b4423, #c49a45);
+  box-shadow: 0 6px 20px rgba(196, 154, 69, 0.28);
 }
 
 .project-card:hover .card-icon {
